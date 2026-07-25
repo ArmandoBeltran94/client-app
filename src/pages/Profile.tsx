@@ -8,7 +8,7 @@ const Profile = () => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState('');
   const [error, setError] = useState('');
-  
+
   const [formData, setFormData] = useState({
     fullName: '',
     phoneNumber: '',
@@ -49,9 +49,9 @@ const Profile = () => {
         currentPassword: formData.currentPassword || undefined,
         newPassword: formData.newPassword || undefined
       });
-      
+
       setSuccess('Perfil actualizado correctamente');
-      
+
       // Clear password fields
       setFormData(prev => ({
         ...prev,
@@ -97,7 +97,7 @@ const Profile = () => {
             <h3 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1.5rem', borderBottom: '1px solid var(--glass-border)', paddingBottom: '1rem' }}>
               <UserIcon size={20} className="text-accent-primary" /> Información Personal
             </h3>
-            
+
             {error && <div className="glass-panel" style={{ background: 'rgba(244, 63, 94, 0.1)', borderColor: 'var(--danger)', color: 'var(--danger)', padding: '1rem', marginBottom: '1rem' }}>{error}</div>}
             {success && <div className="glass-panel" style={{ background: 'rgba(16, 185, 129, 0.1)', borderColor: 'var(--completed)', color: 'var(--completed)', padding: '1rem', marginBottom: '1rem' }}>{success}</div>}
 
@@ -117,7 +117,7 @@ const Profile = () => {
               </h3>
 
               <div className="form-group">
-                <label className="form-label">Contraseña Actual <span className="text-secondary" style={{fontWeight: 'normal'}}>(Requerido si deseas cambiarla)</span></label>
+                <label className="form-label">Contraseña Actual <span className="text-secondary" style={{ fontWeight: 'normal' }}>(Requerido si deseas cambiarla)</span></label>
                 <input type="password" name="currentPassword" className="glass-input" value={formData.currentPassword} onChange={handleChange} />
               </div>
 
