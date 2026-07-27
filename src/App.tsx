@@ -12,6 +12,10 @@ import TherapistDashboard from './pages/TherapistDashboard';
 import Profile from './pages/Profile';
 import NewAppointment from './pages/NewAppointment';
 import ProcessPayment from './pages/ProcessPayment';
+import RequestAppointment from './pages/RequestAppointment';
+import AdminRequests from './pages/AdminRequests';
+
+import LandingPage from './pages/LandingPage';
 
 const ProtectedRoute = ({ children, roles = [] }: { children: React.ReactNode, roles?: string[] }) => {
   const { user, loading, isAuthenticated } = useAuth();
@@ -27,7 +31,7 @@ const ProtectedRoute = ({ children, roles = [] }: { children: React.ReactNode, r
   return <>{children}</>;
 };
 
-const Home = () => {
+const DashboardRouter = () => {
   const { user } = useAuth();
   if (user?.roles.includes('Admin')) return <Navigate to="/admin" />;
   if (user?.roles.includes('Therapist')) return <Navigate to="/therapist" />;
@@ -40,13 +44,15 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Layout />}>
-            <Route index element={
+            <Route index element={<LandingPage />} />
+            <Route path="dashboard" element={
               <ProtectedRoute>
-                <Home />
+                <DashboardRouter />
               </ProtectedRoute>
             } />
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
+            <Route path="solicitar-cita" element={<RequestAppointment />} />
             <Route path="admin" element={
               <ProtectedRoute roles={['Admin']}>
                 <AdminDashboard />
@@ -65,6 +71,11 @@ function App() {
             <Route path="admin/users" element={
               <ProtectedRoute roles={['Admin']}>
                 <AdminUsers />
+              </ProtectedRoute>
+            } />
+            <Route path="admin/requests" element={
+              <ProtectedRoute roles={['Admin']}>
+                <AdminRequests />
               </ProtectedRoute>
             } />
             <Route path="therapist" element={

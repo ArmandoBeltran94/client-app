@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import api from '../services/api';
 import { Users, Edit2, ShieldAlert } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
@@ -130,7 +131,7 @@ const AdminUsers = () => {
         </table>
       </div>
 
-      {showModal && (
+      {showModal && createPortal(
         <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }}>
           <div className="glass-panel" style={{ width: '100%', maxWidth: '500px', padding: '2rem' }}>
             <h3 style={{ marginBottom: '1.5rem' }}>Editar Usuario</h3>
@@ -166,7 +167,8 @@ const AdminUsers = () => {
               </div>
             </form>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   );

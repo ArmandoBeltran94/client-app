@@ -9,6 +9,7 @@ interface AppointmentPending {
   serviceName: string;
   therapistName: string;
   price: number;
+  isPaid: boolean;
 }
 
 const ProcessPayment = () => {
@@ -35,7 +36,7 @@ const ProcessPayment = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    
+
     const apt = appointments.find(a => a.id === Number(selectedAppointment));
     if (!apt) return;
 
@@ -76,9 +77,9 @@ const ProcessPayment = () => {
           <label className="form-label">Cita Pendiente de Pago</label>
           <select className="glass-input glass-select" value={selectedAppointment} onChange={e => setSelectedAppointment(e.target.value)} required>
             <option value="">Selecciona una cita</option>
-            {appointments.map(a => (
+            {appointments.filter(a => a.isPaid === false).map(a => (
               <option key={a.id} value={a.id}>
-                {new Date(a.appointmentDate).toLocaleDateString()} - {a.serviceName} (${a.price})
+                {new Date(a.appointmentDate).toLocaleDateString()} - {new Date(a.appointmentDate).toLocaleTimeString('es-MX', { hour: '2-digit', minute: '2-digit', hour12: true })} - {a.serviceName} (${a.price})
               </option>
             ))}
           </select>

@@ -9,6 +9,8 @@ interface Appointment {
   patientName: string;
   serviceName: string;
   status: number;
+  paymentStatus?: number;
+  isPaid?: boolean;
   notes: string;
 }
 
@@ -54,9 +56,14 @@ const TherapistDashboard = () => {
         {appointments.map(apt => (
           <div key={apt.id} className="glass-panel card">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-              <span className={`badge ${apt.status === 0 ? 'pending' : apt.status === 1 ? 'completed' : apt.status === 2 ? 'success' : 'cancelled'}`}>
-                {apt.status === 0 ? 'Programada' : apt.status === 1 ? 'Confirmada / En Sala' : apt.status === 2 ? 'Finalizada' : 'Cancelada'}
-              </span>
+              <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+                <span className={`badge ${apt.status === 0 ? 'pending' : apt.status === 1 ? 'info' : apt.status === 2 ? 'success' : 'cancelled'}`}>
+                  {apt.status === 0 ? 'Programada' : apt.status === 1 ? 'Confirmada / En Sala' : apt.status === 2 ? 'Finalizada' : 'Cancelada'}
+                </span>
+                <span className={`badge ${apt.isPaid ? 'success' : 'pending'}`}>
+                  {apt.isPaid ? 'Pagado' : 'Pago Pendiente'}
+                </span>
+              </div>
             </div>
             
             <h3 style={{ margin: '0.5rem 0' }}>{apt.serviceName}</h3>

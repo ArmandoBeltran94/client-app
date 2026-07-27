@@ -83,6 +83,20 @@ const Login = () => {
         <button type="submit" className="glass-button" style={{ width: '100%' }} disabled={loading}>
           <LogIn size={18} /> {loading ? 'Iniciando...' : 'Iniciar Sesión'}
         </button>
+
+        <div style={{ marginTop: '2rem', textAlign: 'center', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '1.5rem' }}>
+          <p style={{ color: 'var(--text-secondary)', marginBottom: '1rem', fontSize: '0.9rem' }}>
+            ¿No tienes cuenta y deseas agendar?
+          </p>
+          <button 
+            type="button" 
+            className="glass-button" 
+            onClick={() => navigate('/solicitar-cita')}
+            style={{ width: '100%', background: 'rgba(255, 255, 255, 0.05)', color: 'var(--primary)' }}
+          >
+            Pedir que me contacten
+          </button>
+        </div>
       </form>
     </div>
   );

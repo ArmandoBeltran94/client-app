@@ -23,6 +23,7 @@ const Layout = () => {
                   <Link to="/admin/services" className="nav-link">Servicios</Link>
                   <Link to="/admin/therapists" className="nav-link">Terapeutas</Link>
                   <Link to="/admin/users" className="nav-link">Usuarios</Link>
+                  <Link to="/admin/requests" className="nav-link">Peticiones</Link>
                 </>
               )}
               {user?.roles.includes('Therapist') && (
@@ -30,6 +31,7 @@ const Layout = () => {
               )}
               {user?.roles.includes('Patient') && (
                 <>
+                  <Link to="/dashboard" className="nav-link">Mi Panel</Link>
                   <Link to="/appointments/new" className="nav-link">Agendar Cita</Link>
                   <Link to="/payments" className="nav-link">Pagar Cita</Link>
                 </>

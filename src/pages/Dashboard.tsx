@@ -11,6 +11,8 @@ interface Appointment {
   serviceName: string;
   price: number;
   status: number;
+  paymentStatus?: number; // Kept for compatibility if needed, but we will use isPaid
+  isPaid?: boolean;
 }
 
 const Dashboard = () => {
@@ -55,9 +57,14 @@ const Dashboard = () => {
         {appointments.map(apt => (
           <div key={apt.id} className="glass-panel card">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-              <span className={`badge ${apt.status === 0 ? 'pending' : apt.status === 1 ? 'completed' : 'cancelled'}`}>
-                {apt.status === 0 ? 'Pendiente' : apt.status === 1 ? 'Completada' : 'Cancelada'}
-              </span>
+              <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+                <span className={`badge ${apt.status === 0 ? 'pending' : apt.status === 1 ? 'info' : apt.status === 2 ? 'success' : 'cancelled'}`}>
+                  {apt.status === 0 ? 'Pendiente' : apt.status === 1 ? 'Confirmada' : apt.status === 2 ? 'Completada' : 'Cancelada'}
+                </span>
+                <span className={`badge ${apt.isPaid ? 'success' : 'pending'}`}>
+                  {apt.isPaid ? 'Pagado' : 'Pago Pendiente'}
+                </span>
+              </div>
               {apt.status === 0 && (
                 <button onClick={() => cancelAppointment(apt.id)} className="glass-button outline danger" style={{ padding: '4px 8px', fontSize: '0.75rem' }}>
                   <X size={14} /> Cancelar

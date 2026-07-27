@@ -15,6 +15,8 @@ interface DashboardStats {
     therapistName: string;
     serviceName: string;
     status: number;
+    paymentStatus?: number;
+    isPaid?: boolean;
   }[];
 }
 
@@ -121,9 +123,14 @@ const AdminDashboard = () => {
                     </div>
                   </td>
                   <td>
-                    <span className={`badge ${apt.status === 0 ? 'pending' : apt.status === 1 ? 'completed' : 'cancelled'}`}>
-                      {apt.status === 0 ? 'Pendiente' : apt.status === 1 ? 'Completada' : 'Cancelada'}
-                    </span>
+                    <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+                      <span className={`badge ${apt.status === 0 ? 'pending' : apt.status === 1 ? 'info' : apt.status === 2 ? 'success' : 'cancelled'}`}>
+                        {apt.status === 0 ? 'Pendiente' : apt.status === 1 ? 'Confirmada' : apt.status === 2 ? 'Completada' : 'Cancelada'}
+                      </span>
+                      <span className={`badge ${apt.isPaid ? 'success' : 'pending'}`}>
+                        {apt.isPaid ? 'Pagado' : 'Pago Pendiente'}
+                      </span>
+                    </div>
                   </td>
                 </tr>
               ))}
